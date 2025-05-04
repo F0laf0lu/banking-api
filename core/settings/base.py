@@ -39,9 +39,9 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    # "core_apps.user_auth",
-    # "core_apps.common",
-    # "core_apps.user_profile",
+    "apps.userauth",
+    "apps.common",
+    "apps.userprofile",
     # "core_apps.accounts",
     # "core_apps.cards",
 ]
