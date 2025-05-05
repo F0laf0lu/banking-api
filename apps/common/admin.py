@@ -1,4 +1,5 @@
 from django.contrib import admin
+from typing import Any
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
@@ -36,7 +37,7 @@ class ContentViewAdmin(admin.ModelAdmin):
         ),
     )
 
-    def has_add_permission(self, request: HttpRequest):
+    def has_add_permission(self, request):
         return False
 
     def has_change_permission(self, request, obj):
