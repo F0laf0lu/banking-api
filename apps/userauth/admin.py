@@ -22,3 +22,54 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ["email", "is_staff", "is_active", "role"]
     search_fields = ["email", "username", "first_name", "last_name"]
     ordering = ["email"]
+    fieldsets = (
+        (
+            _("Login Credentials"),
+            {
+                "fields": (
+                    "username",
+                    "email",
+                    "password",
+                )
+            },
+        ),
+        (
+            _("Personal Information"),
+            {"fields": ("first_name", "middle_name", "last_name", "id_no", "role")},
+        ),
+        (
+            _("Account Status"),
+            {
+                "fields": (
+                    "account_status",
+                    "failed_login_attempts",
+                    "last_failed_login",
+                )
+            },
+        ),
+        (
+            _("Security"),
+            {"fields": ("security_question", "security_answer")},
+        ),
+        (
+            _("Permissions and Groups"),
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                )
+            },
+        ),
+        (
+            _("Important dates"),
+            {
+                "fields": (
+                    "last_login",
+                    "date_joined",
+                )
+            },
+        ),
+    )
