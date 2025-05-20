@@ -92,6 +92,12 @@ class Profile(TimeStampedModel):
         choices=EmploymentStatus.choices,
         default=EmploymentStatus.SELF_EMPLOYED,
     )
+    employer_name = models.CharField(
+        _("Employer Name"),
+        max_length=50,
+        blank=True,
+        null=True,
+    )
     annual_income = models.DecimalField(
         _("Annual Income"),
         max_digits=12,
