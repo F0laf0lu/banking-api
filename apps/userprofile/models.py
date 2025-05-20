@@ -75,11 +75,11 @@ class Profile(TimeStampedModel):
     # Basic profile info
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     gender = models.CharField(_("Gender"), max_length=8, choices=Gender.choices, default=Gender.MALE)
-    phone_number = PhoneNumberField(_("Phone Number"), max_length=30)
-    address = models.CharField(_("Address"), max_length=100)
-    city = models.CharField(_("City"), max_length=50)
+    phone_number = PhoneNumberField(_("Phone Number"), max_length=30, default=settings.DEFAULT_PHONE_NUMBER)
+    address = models.CharField(_("Address"), max_length=100,  default="Unknown")
+    city = models.CharField(_("City"), max_length=50,  default="Unknown")
     country = CountryField(_("Country"), default=settings.DEFAULT_COUNTRY)
-    date_of_birth = models.DateField(_("Date of Birth"))
+    date_of_birth = models.DateField(_("Date of Birth"), default=settings.DEFAULT_BIRTH_DATE)
 
     # Marital Status
     marital_status = models.CharField(_("Marital Status"),max_length=20,choices=MaritalStatus.choices, default=MaritalStatus.UNKNOWN)
@@ -130,4 +130,4 @@ class Profile(TimeStampedModel):
     )
 
     def __str__(self) -> str:
-        return f"{self.title} {self.user.first_name}'s Profile"
+        return f"{self.user.first_name}'s Profile"
