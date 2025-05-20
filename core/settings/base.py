@@ -160,6 +160,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "userauth.User"
 
+DEFAULT_COUNTRY = "NG"
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
 LOGGING_CONFIG = None
 
 LOGURU_LOGGING = {
