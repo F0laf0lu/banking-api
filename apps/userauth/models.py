@@ -78,6 +78,11 @@ class User(AbstractUser):
         "security_answer",
     ]
 
+    def set_otp(self, otp: str):
+        self.otp = otp
+        self.otp_expiry_time = timezone.now() + settings.OTP_EXPIRATION
+        self.save()
+
     def verify_otp(self, otp):
         if self.otp == otp and self.otp_expiry_time > timezone.now():
             self.otp = ""
