@@ -23,6 +23,7 @@ urlpatterns = [
 
     path("api/v1/auth/", include("djoser.urls")),
     path("api/v1/auth/", include("apps.userauth.urls")),
+    path("api/v1/profiles/", include("apps.userprofile.urls")),
 ]
 
 admin.site.site_header = "Vertex Bank Admin"
