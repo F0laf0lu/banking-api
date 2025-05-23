@@ -13,6 +13,8 @@ from rest_framework.request import Request
 
 from apps.common.models import ContentView
 from apps.common.permissions import IsBranchManager
+from apps.accounts.utils import create_bank_account
+from apps.accounts.models import BankAccount
 from apps.common.renderers import GenericJSONRenderer
 from .models import Profile
 from .serializers import ProfileListSerializer, ProfileSerializer
@@ -42,7 +44,6 @@ class ProfileDetailAPIView(generics.RetrieveUpdateAPIView):
     parser_classes = [MultiPartParser, FormParser, JSONParser]
     renderer_classes = [GenericJSONRenderer]
     object_label = "profile"
-
 
     def get_object(self):
         try:
@@ -89,19 +90,22 @@ class ProfileDetailAPIView(generics.RetrieveUpdateAPIView):
             serializer.is_valid(raise_exception=True)
             with transaction.atomic():
                 updated_instance = serializer.save()
-
+                
+                # modified to users can have only a naira savings account after updating their profile
+                # Will explore removing account creation in profile updating view to KYC   
                 existing_account = BankAccount.objects.filter(
                         user=request.user,
-                        currency=updated_instance.account_currency,
-                        account_type=updated_instance.account_type,
+                        currency=BankAccount.AccountCurrency.NAIRA,
+                        account_type=BankAccount.AccountType.SAVINGS,
                     ).first()
 
                 if not existing_account:
                     bank_account = create_bank_account(
                             request.user,
-                            currency=updated_instance.account_currency,
-                            account_type=updated_instance.account_type,
+                            currency=BankAccount.AccountCurrency.NAIRA,
+                            account_type=BankAccount.AccountType.SAVINGS,
                         )
+                
                     message = (
                             "Profile updated and new bank account created successfully. An email "
                             "has been sent to you with further instructions"

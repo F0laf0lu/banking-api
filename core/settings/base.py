@@ -45,7 +45,7 @@ LOCAL_APPS = [
     "apps.userauth",
     "apps.common",
     "apps.userprofile",
-    # "core_apps.accounts",
+    "apps.accounts",
     # "core_apps.cards",
 ]
 

@@ -93,6 +93,7 @@ class ProfileSerializer(serializers.ModelSerializer):
                     setattr(instance.user, attr, value)
             instance.user.save()
         instance.save()
+        return instance
 
 
 class ProfileListSerializer(serializers.ModelSerializer):
